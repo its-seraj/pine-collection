@@ -1,0 +1,21 @@
+//@version=6
+indicator(title="9 15 EMA", shorttitle="DEMA 9/15", overlay=true, timeframe="", timeframe_gaps=true)
+
+// Inputs
+length1 = input.int(9, title="DEMA Length 1", minval=1)
+length2 = input.int(15, title="DEMA Length 2", minval=1)
+src = input.source(close, title="Source")
+
+// --- DEMA 1 (Length 9)
+e1_1 = ta.ema(src, length1)
+e2_1 = ta.ema(e1_1, length1)
+dema1 = 2 * e1_1 - e2_1
+
+// --- DEMA 2 (Length 15)
+e1_2 = ta.ema(src, length2)
+e2_2 = ta.ema(e1_2, length2)
+dema2 = 2 * e1_2 - e2_2
+
+// --- Plotting
+plot(dema1, title="DEMA 9", color=color.new(color.green, 0))
+plot(dema2, title="DEMA 15", color=color.new(color.orange, 0))
